@@ -1,11 +1,13 @@
 const name = "Bill";
-typeof name === "strng";
+const isString = typeof name === "string";
 
-if (!'serviceWorker' in navigator) {
+console.log(isString);
+
+if (!('serviceWorker' in navigator)) {
 	// you have an old browser
 }
 
 const greeting = "Hello";
-console.log('${greeting} world')
+console.log(`${greeting} world`)
 
 [(1, 2, 3)].forEach(x => console.log(x));
