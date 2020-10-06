@@ -1,15 +1,25 @@
-import React, {memo} from "react";
+import React, {memo, useState} from "react";
 import PropTypes from "prop-types";
 import Featured from "components/Featured";
 
 const FilmCard = ({film}) => {
+  const [description, setDescription] = useState(false);
+
+  const descToggle = () => {
+    setDescription(!description);
+  };
+
   return (
     <div className="ui card">
       <Featured featured={film.featured} id={film._id} />
-      <div className="image">
-        <span className="ui green label ribbon">$ {film.price} </span>
-        <img src={film.img} alt={film.title} />
-      </div>
+      {description ? (
+        <div className="content">{film.description}</div>
+      ) : (
+        <div className="image">
+          <span className="ui green label ribbon">$ {film.price} </span>
+          <img src={film.img} alt={film.title} />
+        </div>
+      )}
 
       <div className="content">
         <span className="header">{film.title}</span>
@@ -18,6 +28,12 @@ const FilmCard = ({film}) => {
           <span className="right floated">
             <i className="icon wait right"></i> {film.duration}
           </span>
+        </div>
+        <div className="content">
+          <i
+            onClick={descToggle}
+            className={`icon eye ${description ? "slash" : ""} link`}
+          ></i>
         </div>
       </div>
       <div className="extra content">

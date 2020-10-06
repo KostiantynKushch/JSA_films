@@ -32,8 +32,8 @@ class App extends Component {
     return (
       <FilmContext.Provider value={this.state}>
         <div className="ui container mt-3">
-          <FilmForm />
-          {/* <FilmList films={films} /> */}
+          {/* <FilmForm /> */}
+          <FilmList films={films} />
         </div>
       </FilmContext.Provider>
     );
