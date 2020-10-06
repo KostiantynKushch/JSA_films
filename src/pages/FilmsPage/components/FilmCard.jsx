@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const FilmCard = ({film}) => {
   return (
@@ -36,6 +37,19 @@ const FilmCard = ({film}) => {
 
 FilmCard.defaultProps = {
   film: {},
+};
+
+FilmCard.propTypes = {
+  film: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired,
+    featured: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default FilmCard;
