@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {prop, sortWith, ascend, descend} from "ramda";
 import FilmList from "pages/FilmsPage/components/FilmList";
+import FilmForm from "pages/FilmsPage/components/FilmForm";
 import FilmContext from "contexts/FilmContext";
 import {films} from "data";
 
@@ -31,7 +32,8 @@ class App extends Component {
     return (
       <FilmContext.Provider value={this.state}>
         <div className="ui container mt-3">
-          <FilmList films={films} />
+          <FilmForm />
+          {/* <FilmList films={films} /> */}
         </div>
       </FilmContext.Provider>
     );
