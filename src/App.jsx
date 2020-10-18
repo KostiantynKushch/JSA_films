@@ -51,12 +51,19 @@ class App extends Component {
       showAddForm: true,
     });
 
+  deleteFilm = film =>
+    this.setState(({films, selectedFilm, showAddForm}) => ({
+      films: this.sortFilms(films.filter(f => f._id !== film._id)),
+      selectedFilm: {},
+      showAddForm: false,
+    }));
   state = {
     films: [],
     toggleFeatured: this.toggleFeatured,
     showAddForm: false,
     selectedFilm: {},
     selectedFilmForEdit: this.selectedFilmForEdit,
+    deleteFilm: this.deleteFilm,
   };
 
   render() {
