@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { prop, sortWith, ascend, descend } from "ramda";
-import { generate as id } from "shortid";
 import FilmList from "pages/FilmsPage/components/FilmList";
 import FilmForm from "pages/FilmsPage/components/FilmForm";
 import FilmContext from "contexts/FilmContext";
-import { films } from "data";
 import TopNavigation from "components/TopNavigation";
 // import RegistrationForm from "pages/RegistrationPage/components/RegistrationForm";
 // import LoginForm from "pages/LoginPage/components/LoginForm";
@@ -31,12 +29,13 @@ class App extends Component {
 	showForm = () => this.setState({ showAddForm: true, selectedFilm: {} });
 	hideForm = () => this.setState({ showAddForm: false, selectedFilm: {} });
 
-	addFilm = film =>
-		this.setState(({ films, showAddForm, selectedFilm }) => ({
-			films: this.sortFilms([...films, { _id: id(), ...film }]),
+	addFilm = filmData => api.films.create(filmData)
+		.then(film => this.setState(({ films, showAddForm, selectedFilm }) => ({
+			films: this.sortFilms([...films, film]),
 			showAddForm: false,
 			selectedFilm: {},
-		}));
+		})))
+
 
 	updateFilm = film =>
 		this.setState(({ films, showAddForm, selectedFilm }) => ({
