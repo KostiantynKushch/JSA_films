@@ -65,8 +65,8 @@ class App extends Component {
     return (
       <FilmContext.Provider value={this.state}>
         <div className="ui container mt-3">
-          <RegistrationForm />
-          <LoginForm />
+          {/* <RegistrationForm /> */}
+          {/* <LoginForm /> */}
           <TopNavigation showForm={this.showForm} />
 
           <div className="ui stackable grid">
