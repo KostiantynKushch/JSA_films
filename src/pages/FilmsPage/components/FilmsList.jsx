@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import FilmCard from "pages/FilmsPage/components/FilmCard";
 import Messages from "components/Messages";
 
-const FilmList = ({films}) => {
+const FilmsList = ({films}) => {
   return (
     <div className="ui four cards">
       {films.length === 0 ? (
-        <Messages type="info" color="olive">
-          No fims yet in our database
-        </Messages>
+        <Messages>No films in our base yet</Messages>
       ) : (
         films.map(film => <FilmCard key={film._id} film={film} />)
       )}
@@ -17,12 +15,12 @@ const FilmList = ({films}) => {
   );
 };
 
-FilmList.defaultProps = {
-  films: [],
-};
-
-FilmList.propTypes = {
+FilmsList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default memo(FilmList);
+FilmsList.defaultProps = {
+  films: [],
+};
+
+export default memo(FilmsList);
