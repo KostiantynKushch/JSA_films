@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { prop, sortWith, ascend, descend } from "ramda";
+import _find from 'lodash/find'
 import FilmList from "pages/FilmsPage/components/FilmList";
 import FilmForm from "pages/FilmsPage/components/FilmForm";
 import FilmContext from "contexts/FilmContext";
@@ -7,24 +8,22 @@ import TopNavigation from "components/TopNavigation";
 // import RegistrationForm from "pages/RegistrationPage/components/RegistrationForm";
 // import LoginForm from "pages/LoginPage/components/LoginForm";
 import api from 'api'
+import Spinner from 'components/Spinner'
 
 class App extends Component {
 	componentDidMount() {
 		api.films.fetchAll()
-			.then(films => this.setState({ films: this.sortFilms(films) }));
+			.then(films => this.setState({ films: this.sortFilms(films), loading: false }));
 	}
 
 	sortFilms = films =>
 		sortWith([descend(prop("featured")), ascend(prop("title"))], films);
 
-	toggleFeatured = id =>
-		this.setState(({ films }) => ({
-			films: this.sortFilms(
-				films.map(film =>
-					film._id === id ? { ...film, featured: !film.featured } : film,
-				),
-			),
-		}));
+	toggleFeatured = _id => {
+		const film = _find(this.state.films, { _id })
+		return this.updateFilm({ ...film, featured: !film.featured })
+	}
+
 
 	showForm = () => this.setState({ showAddForm: true, selectedFilm: {} });
 	hideForm = () => this.setState({ showAddForm: false, selectedFilm: {} });
@@ -53,14 +52,15 @@ class App extends Component {
 			showAddForm: true,
 		});
 
-	deleteFilm = film =>
-		this.setState(({ films, selectedFilm, showAddForm }) => ({
-			films: this.sortFilms(films.filter(f => f._id !== film._id)),
-			selectedFilm: {},
-			showAddForm: false,
-		}));
+	deleteFilm = film => api.films.delete(film).then(() => this.setState(({ films, selectedFilm, showAddForm }) => ({
+		films: this.sortFilms(films.filter(f => f._id !== film._id)),
+		selectedFilm: {},
+		showAddForm: false,
+	})));
+
 	state = {
 		films: [],
+		loading: true,
 		toggleFeatured: this.toggleFeatured,
 		showAddForm: false,
 		selectedFilm: {},
@@ -69,7 +69,7 @@ class App extends Component {
 	};
 
 	render() {
-		const { films, showAddForm, selectedFilm } = this.state;
+		const { films, showAddForm, selectedFilm, loading } = this.state;
 		const cols = showAddForm ? "ten" : "sixteen";
 		return (
 			<FilmContext.Provider value={this.state}>
@@ -90,7 +90,7 @@ class App extends Component {
 						)}
 
 						<div className={`${cols} wide column`}>
-							<FilmList films={films} />
+							{loading ? <Spinner /> : <FilmList films={films} />}
 						</div>
 					</div>
 				</div>
