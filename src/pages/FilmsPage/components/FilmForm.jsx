@@ -23,14 +23,9 @@ class FilmForm extends Component {
 
 	_isMounted = false;
 
-	componentDidMount() {
-		this._isMounted = true;
-		if (this.props.film._id) {
-			this.setState({ data: this.props.film })
-		}
-	}
 
 	componentDidMount() {
+		this._isMounted = true;
 		if (this.props.film._id) {
 			this.setState({ data: this.props.film });
 		}
