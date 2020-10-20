@@ -7,7 +7,7 @@ import SignupPage from 'pages/SignupPage'
 
 
 const initUser = {
-	token: 'test',
+	token: 'null',
 	role: 'user'
 }
 
