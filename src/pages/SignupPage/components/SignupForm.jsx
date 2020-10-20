@@ -5,9 +5,10 @@ import FormMessage from "components/FormMessage"
 const initialData = {
   email: "",
   password: "",
+  passwordConfirmation: "",
 }
 
-class LoginForm extends React.Component {
+class SignupForm extends React.Component {
   state = {
     data: initialData,
     errors: {},
@@ -37,7 +38,8 @@ class LoginForm extends React.Component {
     const errors = {}
     if (!data.email) errors.email = "Email cannot be blank"
     if (!data.password) errors.password = "Password cannot be blank"
-
+    if (!data.passwordConfirmation)
+      errors.passwordConfirmation = "Password confirmation cannot be blank"
     return errors
   }
 
@@ -47,28 +49,31 @@ class LoginForm extends React.Component {
     return (
       <form className={cls} onSubmit={this.handleSubmit}>
         <div className={errors.email ? "error field" : "field"}>
-          <label>Email</label>
-          <input value={data.email} onChange={this.handleChange} type="text"  name="email" id="email"  placeholder="Email" />
-          {errors.email && <FormMessage>{errors.email}</FormMessage>}
+          <label htmlFor="email">Email</label>
+          <input value={data.email} onChange={this.handleChange} type="text" name="email" id="email" placeholder="Email" />
+          {errors.email &&  <FormMessage>{errors.email}</FormMessage> }
         </div>
 
         <div className={errors.password ? "error field" : "field"}>
-          <label>Password</label>
-          <input value={data.password} onChange={this.handleChange} type="text" name="password" id="password" placeholder="password" />
-          {errors.password  &&   <FormMessage>{errors.password}</FormMessage>} 
+          <label htmlFor="password">Password</label>
+          <input value={data.password} onChange={this.handleChange} type="text" name="password"  id="password" placeholder="password" />
+          {errors.password && <FormMessage>{errors.password}</FormMessage> }
         </div>
+
+        <div className={errors.passwordConfirmation ? "error field" : "field"}>
+          <label htmlFor="passwordConfirmation">Password Confirmation</label>
+          <input value={data.passwordConfirmation} onChange={this.handleChange} type="text" name="passwordConfirmation"  id="passwordConfirmation" placeholder="password confirmation" />
+          {errors.passwordConfirmation && <FormMessage>{errors.passwordConfirmation}</FormMessage> }
+        </div>
+
         <div className="ui fluid buttons">
-          <button className="ui button primary">Login</button>
-
+          <button className="ui button primary">Sing Up</button>
           <div className="or" />
-
-          <Link to="/" className="ui button">
-            Cancel
-          </Link>
+          <Link to="/" className="ui button">Cancel</Link>
         </div>
       </form>
     )
   }
 }
 
-export default LoginForm
+export default SignupForm

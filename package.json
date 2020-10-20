@@ -17,7 +17,8 @@
 		"react-scripts": "3.4.3",
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^2.0.0",
-		"shortid": "^2.2.15"
+		"shortid": "^2.2.15",
+		"validator": "^13.1.17"
 	},
 	"scripts": {
 		"start": "react-scripts start",
