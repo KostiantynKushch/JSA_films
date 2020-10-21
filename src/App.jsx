@@ -7,6 +7,7 @@ import Spinner from 'components/Spinner'
 const FilmsPage = lazy(() => import('pages/FilmsPage'))
 const SignupPage = lazy(() => import('pages/SignupPage'))
 const LoginPage = lazy(() => import('pages/LoginPage'))
+const FilmDetails = lazy(() => import("pages/FilmsPage/components/FilmDetails"))
 
 const initUser = {
 	token: 'null',
@@ -41,7 +42,9 @@ class App extends Component {
 						<Route path="/login" >
 							<LoginPage />
 						</Route>
-
+						<Route path="/film/:_id" render={({ match }) => <FilmDetails
+							film={{}}
+						/>} />
 					</Switch>
 				</div>
 			</Suspense>
