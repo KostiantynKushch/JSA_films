@@ -4,15 +4,16 @@ import FilmContext from "contexts/FilmContext";
 
 const Featured = ({featured, id}) => {
   const {toggleFeatured} = useContext(FilmContext);
-  const featuredCalss = featured ? "yellow" : "empty";
+
+  const cls = featured ? "yellow" : "empty";
   return (
     <span onClick={() => toggleFeatured(id)} className="ui right corner label">
-      <i className={`${featuredCalss} star icon`}></i>
+      <i className={`${cls} star icon`}></i>
     </span>
   );
 };
 
-Featured.prototype = {
+Featured.propTypes = {
   featured: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
 };

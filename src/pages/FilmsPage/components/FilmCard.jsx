@@ -1,9 +1,18 @@
-import React, {memo} from "react";
+import React, {memo, useContext} from "react";
 import PropTypes from "prop-types";
 import Featured from "components/Featured";
 import FilmCardButtons from "pages/FilmsPage/components/FilmCardButtons";
+import {useUser} from "contexts/UserContext";
 
 const FilmCard = ({film}) => {
+  const [user] = useUser();
+
+  const actionUser = (
+    <div className="extra content">
+      <span className="ui green basic button">Films</span>
+    </div>
+  );
+
   return (
     <div className="ui card">
       <Featured featured={film.featured} id={film._id} />
@@ -21,8 +30,8 @@ const FilmCard = ({film}) => {
           </span>
         </div>
       </div>
-
-      <FilmCardButtons film={film} />
+      {user.token && user.role === "admin" && <FilmCardButtons film={film} />}
+      {user.token && user.role === "user" && actionUser}
     </div>
   );
 };

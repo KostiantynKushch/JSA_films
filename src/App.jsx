@@ -1,52 +1,44 @@
-import React, { Component, lazy, Suspense } from "react";
-import { Switch, Route } from 'react-router-dom'
+import React, {useState, lazy, Suspense} from "react";
+import {Route} from "react-router-dom";
 import TopNavigation from "components/TopNavigation";
-import HomePage from 'pages/HomePage'
-import Spinner from 'components/Spinner'
+import HomePage from "pages/HomePage";
+import Spinner from "components/Spinner";
+import {useUser} from "contexts/UserContext";
 
-const FilmsPage = lazy(() => import('pages/FilmsPage'))
-const SignupPage = lazy(() => import('pages/SignupPage'))
-const LoginPage = lazy(() => import('pages/LoginPage'))
+const FilmsPage = lazy(() => import("pages/FilmsPage"));
+const SignupPage = lazy(() => import("pages/SignupPage"));
+const LoginPage = lazy(() => import("pages/LoginPage"));
 
-const initUser = {
-	token: 'null',
-	role: 'user'
-}
+const App = () => {
+  const [message, setMessage] = useState("");
+  const [user] = useUser();
 
+  return (
+    <Suspense fallback={<Spinner />}>
+      <div className="ui container mt-3">
+        <TopNavigation />
+        {message && (
+          <div className="ui info message">
+            <i className="close icon" onClick={() => setMessage("")} />
+            {message}
+          </div>
+        )}
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/films">
+          <FilmsPage user={user} />
+        </Route>
 
-class App extends Component {
-
-	state = {
-		user: initUser
-	}
-
-	logout = () => this.setState({ user: { token: null } })
-
-	render() {
-		const { user } = this.state;
-		return (
-			<Suspense fallback={<Spinner />}>
-				<div className="ui container mt-3">
-					<TopNavigation logout={this.logout} isAuth={!!user.token} />
-					<Switch>
-						<Route exact path="/">
-							<HomePage />
-						</Route>
-						<Route path="/films">
-							<FilmsPage />
-						</Route>
-						<Route path="/signup" >
-							<SignupPage />
-						</Route>
-						<Route path="/login" >
-							<LoginPage />
-						</Route>
-
-					</Switch>
-				</div>
-			</Suspense>
-		);
-	}
-}
+        <Route path="/signup">
+          <SignupPage setMessage={setMessage} />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+      </div>
+    </Suspense>
+  );
+};
 
 export default App;

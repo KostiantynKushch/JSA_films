@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Messages = ({children, type, color}) => {
+const Messages = ({type, color, children}) => {
   return (
-    <div className={`ui icon ${color} message`}>
+    <div className={`ui icon message ${color}`}>
       <i className={`icon ${type}`}></i>
       <div className="content">
         <div className="header">{children}</div>

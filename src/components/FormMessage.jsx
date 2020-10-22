@@ -9,7 +9,7 @@ const FormMessage = ({type, children}) => {
   );
 };
 
-FormMessage.protoTypes = {
+FormMessage.propTypes = {
   type: PropTypes.oneOf(["error", "info"]).isRequired,
   children: PropTypes.string,
 };
