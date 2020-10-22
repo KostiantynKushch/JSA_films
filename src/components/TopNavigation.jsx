@@ -13,7 +13,7 @@ const TopNavigation = ({ logout, isAuth }) => {
 				<i className="icon films" /> Films
 		</NavLink>
 
-			<NavLink exact to="films/new" className="item">
+			<NavLink exact to="/films/new" className="item">
 				<i className="icon plus" />
         Add new film
       </NavLink>
